@@ -1,0 +1,16 @@
+# Pilão Professional — Fale Conosco
+
+> Central de atendimento ao cliente da Pilão Professional, acessada por QR Code próximo às máquinas automáticas de café. O cliente relata o que aconteceu e a equipe Pilão Professional retorna o contato.
+
+## O que a página oferece
+
+- Formulário de atendimento com nome, e-mail, telefone, estado, cidade, valor da compra, tipo de ocorrência e mensagem
+- Tipos de ocorrência atendidos: cobrança indevida ou duplicada, falha no pagamento, máquina indisponível ou fora de funcionamento, produto não entregue após o pagamento, produto entregue incorretamente, produto em más condições, problemas de qualidade (temperatura, sabor, preparo ou quantidade), problemas técnicos na máquina, solicitação de limpeza ou manutenção e outros
+- Segmentos atendidos pela Pilão Professional: escritórios e indústrias, hotéis, food service e saúde
+
+## Redes sociais oficiais
+
+- Instagram: https://www.instagram.com/pilaoprofessional_
+- Facebook: https://www.facebook.com/pilaoprofessional
+- LinkedIn: https://www.linkedin.com/company/pilaoprofessional/
+- YouTube: https://www.youtube.com/@pilaoprofessional4897

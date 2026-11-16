@@ -1,0 +1,173 @@
+/* Pilão Professional — atendimento */
+:root {
+  --red: #da291c;
+  --red-deep: #a31a10;
+  --red-dark: #b51f17;
+  --cream: #faf7f2;
+  --coffee: #2a1c15;
+  --coffee-soft: #4a362b;
+  --ink: #33251d;
+  --muted: #7a6a5e;
+  --line: #e6dcd2;
+  --gold: #c89a5b;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; color: var(--ink); background: var(--cream); font-family: "Open Sans", sans-serif; }
+button, input, select, textarea { font: inherit; }
+
+/* ---------- Hero ---------- */
+.hero { min-height: 100vh; position: relative; isolation: isolate; overflow: hidden; padding: 38px 22px 76px; }
+.hero-media, .hero-video, .hero-fallback, .hero-overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero-media { z-index: -1; background: #241b18; overflow: hidden; }
+.hero-video { z-index: 1; border: 0; opacity: 0; pointer-events: none; transform: scale(1.18); object-fit: cover; transition: opacity 1.2s ease; }
+.hero-video.is-playing { opacity: 1; }
+.hero-fallback { z-index: 0; background: url("https://customer-assets-jt897jd0.emergentagent.net/job_1d1bdafa-a703-4c7f-8dfc-d6563a15ce30/artifacts/d54bdfdce38af972_background.webp") center / cover no-repeat; }
+.hero-overlay { z-index: 2; background: linear-gradient(160deg, rgba(26, 15, 10, .86), rgba(42, 22, 14, .58) 48%, rgba(26, 15, 10, .8)); }
+.brand-header { position: relative; display: flex; justify-content: center; margin-bottom: 30px; }
+.brand-logo { width: 148px; height: auto; filter: drop-shadow(0 8px 14px rgba(0,0,0,.3)); animation: arrive .7s ease both; }
+
+/* ---------- Introdução ---------- */
+.form-wrap { width: min(840px, 100%); margin: 0 auto; }
+.form-intro { color: white; text-align: center; margin-bottom: 26px; animation: arrive .7s .08s ease both; }
+.eyebrow { display: inline-flex; align-items: center; gap: 10px; color: #f3b562; font-size: 11px; font-weight: 700; letter-spacing: .24em; }
+.eyebrow::before, .eyebrow::after { content: ""; width: 26px; height: 1px; background: currentColor; opacity: .55; }
+h1 { margin: 12px 0 9px; font: 800 clamp(30px, 4.2vw, 46px)/1.1 "Montserrat", sans-serif; letter-spacing: -.035em; }
+.form-intro p { margin: 0; color: rgba(255,255,255,.8); font-size: 15px; }
+
+/* ---------- Formulário ---------- */
+.support-form {
+  position: relative;
+  padding: 34px 32px 30px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, #fffdfb, #fdf9f4);
+  border: 1px solid rgba(200, 154, 91, .35);
+  border-top: 4px solid var(--red);
+  box-shadow: 0 30px 80px rgba(20, 10, 6, .45), 0 2px 0 rgba(255,255,255,.35) inset;
+  animation: arrive .7s .16s ease both;
+}
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 19px 20px; }
+.field { display: flex; flex-direction: column; gap: 7px; color: var(--coffee-soft); font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.field-full { grid-column: 1 / -1; }
+.field input, .field select, .field textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--coffee);
+  background: #fff;
+  padding: 13px 14px;
+  font-size: 14px;
+  letter-spacing: normal;
+  text-transform: none;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' fill='none' stroke='%23a31a10' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 38px;
+  cursor: pointer;
+}
+.field textarea { resize: vertical; min-height: 106px; }
+.field input::placeholder, .field textarea::placeholder { color: #b7a99b; }
+.field input:hover, .field select:hover, .field textarea:hover { border-color: #d8c8b6; }
+.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(218,41,28,.12); transform: translateY(-1px); }
+
+/* ---------- Botão ---------- */
+.submit-button {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  width: 100%; margin-top: 24px;
+  border: 0; border-radius: 999px; padding: 16px 20px;
+  color: #fff; background: linear-gradient(135deg, var(--red), var(--red-deep));
+  font: 800 12px "Montserrat", sans-serif; letter-spacing: .12em;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(163, 26, 16, .28);
+  transition: transform .22s ease, box-shadow .22s ease, filter .22s ease;
+}
+.submit-button:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(163, 26, 16, .36); filter: brightness(1.06); }
+.submit-button:active { transform: translateY(0); }
+.submit-button:disabled { cursor: wait; opacity: .65; }
+.button-arrow { font-size: 19px; line-height: 10px; transition: transform .22s ease; }
+.submit-button:hover .button-arrow { transform: translateX(5px); }
+
+/* ---------- Mensagens ---------- */
+.form-error, .form-status { margin: 15px 0 0; border-radius: 9px; padding: 11px 13px; font-size: 13px; text-transform: none; letter-spacing: normal; }
+.form-error { color: #9d261c; background: #fdecea; border: 1px solid #f3c5bd; }
+.form-status.success { color: #206040; background: #eaf7ee; border: 1px solid #bfe6cc; }
+.is-visible { display: block; }
+
+/* ---------- Faixa de segmentos ---------- */
+.segments { display: grid; grid-template-columns: repeat(4, 1fr); background: linear-gradient(120deg, var(--red-deep), var(--red) 55%, var(--red-deep)); color: white; }
+.segment-card {
+  min-height: 138px;
+  display: flex; align-items: center; justify-content: center; gap: 15px;
+  padding: 24px 20px;
+  border-right: 1px solid rgba(255,255,255,.22);
+  text-align: left;
+  transition: background-color .25s ease;
+}
+.segment-card:last-child { border-right: 0; }
+.segment-card:hover { background: rgba(0,0,0,.14); }
+.segment-icon {
+  flex: 0 0 auto; width: 52px; height: 52px;
+  display: grid; place-items: center;
+  border: 1px solid rgba(255,255,255,.45); border-radius: 50%;
+  background: rgba(255,255,255,.1);
+  transition: transform .25s ease, background-color .25s ease;
+}
+.segment-icon img { width: 26px; height: 26px; object-fit: contain; display: block; }
+.segment-card:hover .segment-icon { transform: translateY(-3px); background: rgba(255,255,255,.2); }
+.segment-card strong { font: 700 15px/1.32 "Montserrat", sans-serif; letter-spacing: .01em; }
+
+/* ---------- Rodapé ---------- */
+.site-footer { display: flex; align-items: center; justify-content: space-between; gap: 25px; padding: 26px 6vw; color: var(--muted); background: var(--cream); font-size: 12px; border-top: 1px solid var(--line); }
+.site-footer p { margin: 0; }
+.social-links { display: flex; flex-wrap: wrap; gap: 12px; }
+.social-links a {
+  width: 42px; height: 42px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  color: var(--red-deep);
+  background: #fff;
+  border: 1px solid var(--line);
+  box-shadow: 0 2px 8px rgba(42, 28, 21, .07);
+  transition: background-color .25s ease, color .25s ease, transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.social-links a svg { width: 18px; height: 18px; fill: currentColor; display: block; }
+.social-links a:hover {
+  color: #fff;
+  background: linear-gradient(135deg, var(--red), var(--red-deep));
+  border-color: var(--red);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(163, 26, 16, .3);
+}
+.social-links a:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+@keyframes arrive { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 680px) {
+  .hero { padding: 26px 14px 52px; }
+  .brand-header { margin-bottom: 22px; }
+  .brand-logo { width: 122px; }
+  .form-intro { margin-bottom: 20px; }
+  .form-intro p { font-size: 13px; }
+  .support-form { padding: 22px 17px; border-radius: 16px; }
+  .form-grid { grid-template-columns: 1fr; gap: 15px; }
+  .field-full { grid-column: auto; }
+  .segments { grid-template-columns: 1fr 1fr; }
+  .segment-card { min-height: 112px; padding: 18px 13px; gap: 10px; }
+  .segment-icon { width: 44px; height: 44px; }
+  .segment-icon img { width: 22px; height: 22px; }
+  .segment-card strong { font-size: 12px; }
+  .site-footer { flex-direction: column; align-items: flex-start; padding: 22px 20px; gap: 15px; }
+}
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } .hero-video { display: none; } }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f1ece5; }
+::-webkit-scrollbar-thumb { background: var(--red); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--red-deep); }
