@@ -2,7 +2,7 @@
    Se você criar uma NOVA implantação no Apps Script, a URL muda:
    cole a URL nova /exec aqui. Se apenas EDITAR a implantação existente
    (Gerenciar implantações → lápis → Nova versão), a URL continua a mesma. */
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxK0wTO_XrB1a3vS1cyjuAjr6mpbrCy_eW5lSrDsMY7SOhXOcnHwQ4ViiNAf6vb4qeb/exec";
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxpgJKNK-1EkNCOI3PtfES0j_Yp-YhZ-iR4y9Y8AEiGkdrc56q9gNJng-iaihJ1k8aEZQ/exec";
 
 const form = document.querySelector("#support-form");
 const phoneInput = document.querySelector("#phone");
