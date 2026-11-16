@@ -1,43 +1,8 @@
 /* URL publicada do Google Apps Script (Web App). */
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyimjlDvq8YOSuGNMGMsyh2sV73rus8ja8_mkHj4AsDYbZmV6UPCSmANJwFbc_YN3to/exec";
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNur-3BNfRK21oq3fegyn5itREapvLICYnmCXtfBcFHFNpCvI8eL8eyJZ1p5ypItD2/exec";
 
-/* Vídeo de fundo via YouTube IFrame API: só revela quando o player confirma reprodução.
-   Se o vídeo estiver indisponível/bloqueado, a imagem de fallback permanece. */
-(function initHeroVideo() {
-  const mount = document.querySelector("#hero-player");
-  if (!mount) return;
-
-  const tag = document.createElement("script");
-  tag.src = "https://www.youtube.com/iframe_api";
-  document.head.appendChild(tag);
-
-  window.onYouTubeIframeAPIReady = function () {
-    new YT.Player("hero-player", {
-      videoId: "0rJEv7hm4iw",
-      playerVars: {
-        autoplay: 1,
-        mute: 1,
-        loop: 1,
-        playlist: "0rJEv7hm4iw",
-        controls: 0,
-        rel: 0,
-        modestbranding: 1,
-        playsinline: 1,
-        disablekb: 1,
-        fs: 0,
-        iv_load_policy: 3,
-      },
-      events: {
-        onStateChange: function (event) {
-          if (event.data === YT.PlayerState.PLAYING) mount.classList.add("is-playing");
-        },
-        onError: function () {
-          mount.classList.remove("is-playing");
-        },
-      },
-    });
-  };
-})();
+/* Vídeo de fundo: o iframe do YouTube carrega direto.
+   A imagem de fallback fica por baixo e só aparece se o vídeo falhar. */
 
 const form = document.querySelector("#support-form");
 const phoneInput = document.querySelector("#phone");
