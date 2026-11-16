@@ -76,19 +76,19 @@ form.addEventListener("submit", async (event) => {
 
 /* Popup de sucesso */
 function openSuccessModal() {
-  const modal = document.querySelector("#success-modal");
-  modal.hidden = false;
+  const modal = document.getElementById("success-modal");
+  modal.style.display = "flex";
   document.body.style.overflow = "hidden";
 }
 function closeSuccessModal() {
-  const modal = document.querySelector("#success-modal");
-  modal.hidden = true;
+  const modal = document.getElementById("success-modal");
+  modal.style.display = "none";
   document.body.style.overflow = "";
 }
-document.querySelector("#success-close").addEventListener("click", closeSuccessModal);
-document.querySelector("#success-modal").addEventListener("click", (event) => {
-  if (event.target === event.currentTarget) closeSuccessModal();
+document.getElementById("success-close").addEventListener("click", closeSuccessModal);
+document.getElementById("success-modal").addEventListener("click", function(event) {
+  if (event.target === this) closeSuccessModal();
 });
-document.addEventListener("keydown", (event) => {
+document.addEventListener("keydown", function(event) {
   if (event.key === "Escape") closeSuccessModal();
 });
