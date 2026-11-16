@@ -1,5 +1,5 @@
 /* URL publicada do Google Apps Script (Web App). */
-const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxNur-3BNfRK21oq3fegyn5itREapvLICYnmCXtfBcFHFNpCvI8eL8eyJZ1p5ypItD2/exec";
+const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxK0wTO_XrB1a3vS1cyjuAjr6mpbrCy_eW5lSrDsMY7SOhXOcnHwQ4ViiNAf6vb4qeb/exec";
 
 /* Vídeo de fundo: o iframe do YouTube carrega direto.
    A imagem de fallback fica por baixo e só aparece se o vídeo falhar. */
@@ -62,7 +62,7 @@ form.addEventListener("submit", async (event) => {
   try {
     await sendToGoogleAppsScript(payload);
     form.reset();
-    showMessage(formStatus, "Dados enviados com sucesso! Em breve entraremos em contato.", "success");
+    openSuccessModal();
   } catch (error) {
     const message = error.message === "INTEGRATION_NOT_CONFIGURED"
       ? "O formulário está pronto, mas o envio ainda precisa da URL do Google Apps Script."
@@ -72,4 +72,23 @@ form.addEventListener("submit", async (event) => {
     button.disabled = false;
     button.classList.remove("is-loading");
   }
+});
+
+/* Popup de sucesso */
+function openSuccessModal() {
+  const modal = document.querySelector("#success-modal");
+  modal.hidden = false;
+  document.body.style.overflow = "hidden";
+}
+function closeSuccessModal() {
+  const modal = document.querySelector("#success-modal");
+  modal.hidden = true;
+  document.body.style.overflow = "";
+}
+document.querySelector("#success-close").addEventListener("click", closeSuccessModal);
+document.querySelector("#success-modal").addEventListener("click", (event) => {
+  if (event.target === event.currentTarget) closeSuccessModal();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeSuccessModal();
 });
