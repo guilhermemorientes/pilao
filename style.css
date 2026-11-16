@@ -22,7 +22,7 @@ button, input, select, textarea { font: inherit; }
 .hero-media { z-index: -1; background: #241b18; overflow: hidden; }
 .hero-video { z-index: 1; border: 0; pointer-events: none; position: absolute; top: 50%; left: 50%; width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.78vh; transform: translate(-50%, -50%); }
 .hero-fallback { z-index: 0; background: url("https://customer-assets-jt897jd0.emergentagent.net/job_1d1bdafa-a703-4c7f-8dfc-d6563a15ce30/artifacts/d54bdfdce38af972_background.webp") center / cover no-repeat; }
-.hero-overlay { z-index: 2; background: linear-gradient(160deg, rgba(26, 15, 10, .86), rgba(42, 22, 14, .58) 48%, rgba(26, 15, 10, .8)); }
+.hero-overlay { z-index: 2; background: rgba(0, 0, 0, .55); }
 .brand-header { position: relative; display: flex; justify-content: center; margin-bottom: 30px; }
 .brand-logo { width: 148px; height: auto; filter: drop-shadow(0 8px 14px rgba(0,0,0,.3)); animation: arrive .7s ease both; }
 
@@ -94,10 +94,20 @@ h1 { margin: 12px 0 9px; font: 800 clamp(30px, 4.2vw, 46px)/1.1 "Montserrat", sa
 .submit-button:hover .button-arrow { transform: translateX(5px); }
 
 /* ---------- Mensagens ---------- */
-.form-error, .form-status { margin: 15px 0 0; border-radius: 9px; padding: 11px 13px; font-size: 13px; text-transform: none; letter-spacing: normal; }
-.form-error { color: #9d261c; background: #fdecea; border: 1px solid #f3c5bd; }
-.form-status.success { color: #206040; background: #eaf7ee; border: 1px solid #bfe6cc; }
+.form-error { margin: 15px 0 0; border-radius: 9px; padding: 11px 13px; font-size: 13px; text-transform: none; letter-spacing: normal; color: #9d261c; background: #fdecea; border: 1px solid #f3c5bd; }
 .is-visible { display: block; }
+
+/* ---------- Popup de sucesso ---------- */
+.success-modal { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 22px; background: rgba(0, 0, 0, .6); backdrop-filter: blur(4px); animation: modalFade .25s ease both; }
+.success-card { width: min(420px, 100%); text-align: center; padding: 40px 30px 30px; border-radius: 20px; background: #fffdfb; border-top: 4px solid var(--red); box-shadow: 0 30px 80px rgba(0,0,0,.5); animation: modalPop .3s cubic-bezier(.2, 1.4, .4, 1) both; }
+.success-icon { width: 64px; height: 64px; margin: 0 auto 18px; display: grid; place-items: center; border-radius: 50%; background: linear-gradient(135deg, var(--red), var(--red-deep)); box-shadow: 0 10px 24px rgba(163, 26, 16, .35); }
+.success-icon svg { width: 32px; height: 32px; fill: #fff; }
+.success-card h2 { margin: 0 0 8px; font: 800 22px/1.2 "Montserrat", sans-serif; color: var(--coffee); letter-spacing: -.02em; }
+.success-card p { margin: 0 0 24px; color: var(--muted); font-size: 14px; }
+.success-close { border: 0; border-radius: 999px; padding: 13px 34px; color: #fff; background: linear-gradient(135deg, var(--red), var(--red-deep)); font: 800 12px "Montserrat", sans-serif; letter-spacing: .1em; cursor: pointer; transition: transform .2s ease, filter .2s ease; }
+.success-close:hover { transform: translateY(-2px); filter: brightness(1.08); }
+@keyframes modalFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes modalPop { from { opacity: 0; transform: scale(.9) translateY(12px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
 /* ---------- Faixa de segmentos ---------- */
 .segments { display: grid; grid-template-columns: repeat(4, 1fr); background: linear-gradient(120deg, var(--red-deep), var(--red) 55%, var(--red-deep)); color: white; }
