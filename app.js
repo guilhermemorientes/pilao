@@ -1,21 +1,25 @@
-/* URL publicada do Google Apps Script (Web App). */
+/* URL publicada do Google Apps Script (Web App).
+   Se você criar uma NOVA implantação no Apps Script, a URL muda:
+   cole a URL nova /exec aqui. Se apenas EDITAR a implantação existente
+   (Gerenciar implantações → lápis → Nova versão), a URL continua a mesma. */
 const GOOGLE_APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxK0wTO_XrB1a3vS1cyjuAjr6mpbrCy_eW5lSrDsMY7SOhXOcnHwQ4ViiNAf6vb4qeb/exec";
-
-/* Vídeo de fundo: o iframe do YouTube carrega direto.
-   A imagem de fallback fica por baixo e só aparece se o vídeo falhar. */
 
 const form = document.querySelector("#support-form");
 const phoneInput = document.querySelector("#phone");
 const purchaseInput = document.querySelector("#purchase-value");
 const formError = document.querySelector("#form-error");
-const formStatus = document.querySelector("#form-status");
 
 function onlyDigits(value) { return value.replace(/\D/g, ""); }
 
-function showMessage(element, message, type) {
-  element.textContent = message;
-  element.hidden = false;
-  element.className = element.id === "form-error" ? "form-error is-visible" : `form-status is-visible ${type}`;
+function showError(message) {
+  formError.textContent = message;
+  formError.hidden = false;
+  formError.classList.add("is-visible");
+}
+
+function hideError() {
+  formError.classList.remove("is-visible");
+  formError.hidden = true;
 }
 
 phoneInput.addEventListener("input", (event) => {
@@ -30,27 +34,40 @@ purchaseInput.addEventListener("input", (event) => {
   event.target.value = digits ? (Number(digits) / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : "";
 });
 
+/* Envio com confirmação real: o Web App responde JSON.
+   Se voltar outra coisa (ex.: tela de login do Google), a implantação
+   está com o acesso errado e o erro é mostrado em vez de fingir sucesso. */
 async function sendToGoogleAppsScript(payload) {
-  if (!GOOGLE_APPS_SCRIPT_URL) throw new Error("INTEGRATION_NOT_CONFIGURED");
-  await fetch(GOOGLE_APPS_SCRIPT_URL, {
-    method: "POST",
-    mode: "no-cors",
-    body: new URLSearchParams(payload),
-  });
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 45000);
+  try {
+    const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+      method: "POST",
+      redirect: "follow",
+      signal: controller.signal,
+      body: new URLSearchParams(payload),
+    });
+    let data = null;
+    try { data = JSON.parse(await response.text()); } catch (_) { data = null; }
+    if (!data) throw new Error("BAD_DEPLOYMENT");
+    if (!data.success) throw new Error(data.error || "Não foi possível registrar o atendimento.");
+    return data;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
-  formError.hidden = true;
-  formStatus.hidden = true;
+  hideError();
 
   if (!form.checkValidity()) {
-    showMessage(formError, "Confira os campos obrigatórios antes de enviar.", "error");
+    showError("Confira os campos obrigatórios antes de enviar.");
     form.querySelector(":invalid")?.focus();
     return;
   }
   if (onlyDigits(phoneInput.value).length < 10) {
-    showMessage(formError, "Informe um telefone válido com DDD.", "error");
+    showError("Informe um telefone válido com DDD.");
     phoneInput.focus();
     return;
   }
@@ -64,17 +81,20 @@ form.addEventListener("submit", async (event) => {
     form.reset();
     openSuccessModal();
   } catch (error) {
-    const message = error.message === "INTEGRATION_NOT_CONFIGURED"
-      ? "O formulário está pronto, mas o envio ainda precisa da URL do Google Apps Script."
-      : "Não foi possível enviar agora. Tente novamente em instantes.";
-    showMessage(formError, message, "error");
+    if (error.name === "AbortError") {
+      showError("O envio demorou demais. Verifique sua conexão e tente novamente.");
+    } else if (error.message === "BAD_DEPLOYMENT" || error.name === "TypeError") {
+      showError("O servidor do formulário não respondeu corretamente. Confira a implantação do Apps Script (Executar como: Eu / Quem tem acesso: Qualquer pessoa) e se a URL em GOOGLE_APPS_SCRIPT_URL é a da implantação ativa.");
+    } else {
+      showError(error.message || "Não foi possível enviar agora. Tente novamente em instantes.");
+    }
   } finally {
     button.disabled = false;
     button.classList.remove("is-loading");
   }
 });
 
-/* Popup de sucesso */
+/* Popup de sucesso — só abre depois da confirmação do servidor */
 function openSuccessModal() {
   const modal = document.getElementById("success-modal");
   modal.style.display = "flex";
